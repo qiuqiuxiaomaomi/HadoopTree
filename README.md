@@ -76,6 +76,5 @@ Map任务将其输出写入本地硬盘，而非HDFS，这是因为Map的输出�
 
 Reduce任务并不具备数据本地化的优势，单个reduce任务的输入通常来自于所有mapper的输出，拍过序的map输出需要通过网络传输发送到运行reduce任务的节点。数据在reduce端合并，然后由用户定义的reduce函数处理，reduce的输出通常存储在HDFS中以实现可靠存储。对于每个reduce输出的HDFS块，第一个复本存储在本地节点上，其他复本存储在其他机架节点中，因此需要占用带宽。
 </pre>
-<<<<<<< HEAD
 
 ![](https://i.imgur.com/7tiOwaC.jpg)
