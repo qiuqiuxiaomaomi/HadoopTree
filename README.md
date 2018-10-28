@@ -45,3 +45,22 @@ Hadoop生态系统
     10）Sqoop：该工具用语在结构化数据存储（如关系型数据库）和HDFS之间高效批量传输数据
     11）Oozie: 该服务用于运行和调度Hadoop作业（如MapReduce， Pig, Hive, Sqoop作业）
 </pre>
+
+<pre>
+使用Hadoop分析数据
+    MapReduce任务过程分为两个处理阶段
+	    1）Map阶段
+		2）Reduce阶段
+		每个阶段都以键值对作为输入和输出。
+</pre>
+
+<pre>
+MapReduce作业（job）是客户端需要执行的一个工作单元，它包括输入数据，MapReduce程序和配置信息. Hadoop将作业分成若干个小任务来执行，其中包括两类任务：map任务和reduce任务.
+
+有两类节点控制着作业执行过程
+      1）一个jobtracker
+	     jobtracker通过调度tasktracker上运行的任务来协调所有运行在系统上的作业。
+	  2）一系列tasktracker
+         tasktracker在运行任务的同时将运行进度报告发送给jobtracker，jobtracker由此记录每项作业任务的整体进度情况，如果一个
+		 任务失败，jobtracker可以在另外一个tasktracker节点上重新调度该任务。
+</pre>
