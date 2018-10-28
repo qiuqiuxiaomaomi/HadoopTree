@@ -34,4 +34,14 @@ Hadoop的发展简史
 
 <pre>
 Hadoop生态系统
+    1）Common：一系列组件和接口，用于分布式文件系统和通用I/O(序列化，JAVA RPC和持久化数据结构)
+    2）Avro：一种序列化系统，用于支持高校，跨语言的RPC和持久化数据存储
+    3）MapReduce：分布式数据处理模型和执行环境，运行于大型商用机器集群
+    5）HDFS：分布式文件系统，运行于大型商用机集群
+    6）Pig: 数据流语言和运行环境，用以探究非常庞大的数据集,Pig运行在MapReduce和HDFS集群上
+    7）Hive: 一种分布式的，按列存储到额数据仓库，Hive管理HDFS中存储的数据，并提供基于SQL的查询语言(由运行时翻译成MapReduce作业)用以查询数据
+    8）HBase：一种分布式的，按列存储的数据库。HBase使用HDFS作为底层存储，同时支持MapReduce的批量式计算和点查询
+    9）Zookeeper：一种分布式的，可用性高的协调服务，Zookeeper提供分布式锁之类的基本服务用语构建分布式应用
+    10）Sqoop：该工具用语在结构化数据存储（如关系型数据库）和HDFS之间高效批量传输数据
+    11）Oozie: 该服务用于运行和调度Hadoop作业（如MapReduce， Pig, Hive, Sqoop作业）
 </pre>
