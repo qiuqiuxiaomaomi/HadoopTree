@@ -64,3 +64,7 @@ MapReduce作业（job）是客户端需要执行的一个工作单元，它包�
          tasktracker在运行任务的同时将运行进度报告发送给jobtracker，jobtracker由此记录每项作业任务的整体进度情况，如果一个
 		 任务失败，jobtracker可以在另外一个tasktracker节点上重新调度该任务。
 </pre>
+
+<pre>
+Hadoop将MapReduce的输入数据划分成等长的小数据块，称为输入分片，Hadoop为每个分片构建一个map任务，并由该任务来运行用户自定义的map函数从而处理分片中的每条记录。
+</pre>
