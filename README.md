@@ -8,7 +8,7 @@ Hadoop技术研究
 
    MapReduce比较适合以批处理方式处理需要分析整个数据集的问题，尤其是动态分析。
          适合一次写入，多次读取数据的应用
-		 半结构化数据比较松散，虽然可能有格式但是经常被忽略，MapReduce对非结构化（如图片）或者半结构化的数据非常有效，因为它是在处理数据时才对数据进行解释。	 
+         半结构化数据比较松散，虽然可能有格式但是经常被忽略，MapReduce对非结构化（如图片）或者半结构化的数据非常有效，因为它是在处理数据时才对数据进      行解释。	 
 		      
    RDBMS 
          适用于点查询和更新，数据集被索引之后，数据库系统能够提供低延迟的数据检索和快速的少 量数据更新
@@ -50,7 +50,7 @@ Hadoop生态系统
 使用Hadoop分析数据
     MapReduce任务过程分为两个处理阶段
 	    1）Map阶段
-		2）Reduce阶段
+	    2）Reduce阶段
 		每个阶段都以键值对作为输入和输出。
 </pre>
 
@@ -60,7 +60,7 @@ MapReduce作业（job）是客户端需要执行的一个工作单元，它包�
 有两类节点控制着作业执行过程
       1）一个jobtracker
 	     jobtracker通过调度tasktracker上运行的任务来协调所有运行在系统上的作业。
-	  2）一系列tasktracker
+      2）一系列tasktracker
          tasktracker在运行任务的同时将运行进度报告发送给jobtracker，jobtracker由此记录每项作业任务的整体进度情况，如果一个
 		 任务失败，jobtracker可以在另外一个tasktracker节点上重新调度该任务。
 </pre>
@@ -76,5 +76,6 @@ Map任务将其输出写入本地硬盘，而非HDFS，这是因为Map的输出�
 
 Reduce任务并不具备数据本地化的优势，单个reduce任务的输入通常来自于所有mapper的输出，拍过序的map输出需要通过网络传输发送到运行reduce任务的节点。数据在reduce端合并，然后由用户定义的reduce函数处理，reduce的输出通常存储在HDFS中以实现可靠存储。对于每个reduce输出的HDFS块，第一个复本存储在本地节点上，其他复本存储在其他机架节点中，因此需要占用带宽。
 </pre>
+<<<<<<< HEAD
 
 ![](https://i.imgur.com/7tiOwaC.jpg)
