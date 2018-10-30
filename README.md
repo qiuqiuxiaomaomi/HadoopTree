@@ -1,6 +1,8 @@
 # HadoopTree
 Hadoop技术研究
 
+![](https://i.imgur.com/quSemDU.png)
+
 <pre>
    Hadoop为用户提供了一个可靠的共享存储和分析系统
        1) HDFS实现数据的存储
