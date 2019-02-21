@@ -82,3 +82,134 @@ Reduce任务并不具备数据本地化的优势，单个reduce任务的输入�
 </pre>
 
 ![](https://i.imgur.com/7tiOwaC.jpg)
+
+
+Hadoop生态圈主要应用
+
+![](https://i.imgur.com/cA7nESg.png)
+
+<pre>
+HDFS:
+     
+      分布式文件系统
+      是Hadoop体系中数据存储管理的基础，它是一个高度容错的系统，能检测和应对硬件故障。
+ 
+      client:切分文件，访问HDFS,与Namenode交互，获取文件位置信息，与DataNode交互，读取
+             和写入数据。
+
+      namenode:master节点，在hadoop1.x中只有一个，管理HDFS的名称空间和数据块映射信息，
+               配置副本策略，处理客户端请求。
+
+      DataNode:slave节点，存储实际的数据，汇报存储信息给namenode.
+
+      secondary namenode：辅助namenode，分担其工作量，定期合并fsimage和fsedits，推送给
+                          namenode，紧急情况下辅助恢复namenode,但其并非namenode的
+                          热备。
+</pre>
+
+<pre>
+mapreduce:
+ 
+      分布式计算框架
+      mapreduce是一种计算模型，用于处理大数据量的计算，其中map对应数据集上的独立元素进行
+      指定的操作，生成键-值对形式中间，reduce则对中间结果中相同的键的所有值进行规约，以得
+      到最终结果。
+
+      jobtracker:master节点，只有一个，管理所有作业，任务/作业的监控，错误处理等，将任务
+                 分解成一系列任务，并分派给tasktracker.
+
+      tasktracker:slave节点，运行map task, reduce task，并与jobtracker交互，汇报
+                  任务状态。
+
+      map task: 解析每条数据记录，传递给用户编写的map()并执行，将输出结果写入到本地磁盘
+                （如果为map-only作业，则直接写入HDFS）
+
+      reduce task:从map task执行结果中，远程读取输入数据，对数据进行排序，将数据分组
+                  传递给用户编写的reduce函数执行。
+   
+</pre>
+
+<pre>
+hive:
+
+      基于hadoop的数据仓库
+      由facebook开源，最初用于解决海量结构化的日志数据统计问题。
+      hive定义了一种类似于sql的查询语言hql,将sql转化为mapreduce任务在hadoop上执行。
+</pre>
+
+<pre>
+hbase
+
+      分布式列式数据库
+      hbase是一个针对结构化数据的可伸缩，高可靠，高性能，分布式，面向列的动态模式数据库。和
+      传统关系型数据库不同，hbase采用了bigtable的数据模型：增强了稀疏排序映射表
+     （key/value）。其中键由行关键字，列关键字和时间戳构成，hbase提供了对大规模数据的随机
+      ，实时读写访问，同时，hbase中保存的数据可以使用mapreduce来处理，它将数据存储与
+      并行存储完美的结合在一起。
+</pre>
+
+<pre>
+sqoop
+ 
+     数据同步工具
+     sqoop是sql-to-hadoop的缩写，只要用户传统数据库与hadoop之间传输数据。
+     数据的导入和导出本质上是mapreduce程序，充分利用了MapReduce的并行化和容错性。
+</pre>
+
+<pre>
+pig:
+     
+     基于hadoop的数据流系统
+     定义了一种数据流语言pig latin，将脚本转换为mapreduce任务在hadoop上执行。
+     通常用于离线分析。
+</pre>
+
+<pre>
+mahout:
+
+     数据挖掘算法库
+     mahout的主要目的是创建一些可扩展的机器学习领域经典算法的实现，旨在帮助开发人员更加方便
+     快捷的创建智能应用程序。mahout现在已经包含了聚类，分类，推荐引擎和频繁集挖掘等广发使用
+     的数据挖掘方法，除了算法是，mahout还包含了数据的输入，输出工具，与其他存储系统集成等
+     数据挖掘支持架构。
+</pre>
+
+<pre>
+flume:
+
+     日志收集工具
+     cloudera开源的日志收集系统，具有分布式，高可靠，高容错，易于定制和扩展的特点。它将数据
+     从产生，传输，处理并写入目标的路径抽象为数据流，在具体的数据流中，数据源支持在flume
+     中定制数据发送方，从而支持数据集各种不同的协议数据。
+</pre>
+
+<pre>
+YARN Mesos:
+
+     随着互联网的高速发展，基于数据密集型应用的计算框架不断出现，从支持离线处理的mapreduce，
+     到支持在线处理的storm，从迭代式计算框架到流式处理框架s4,...,在大部分互联网公司中，这几种
+     框架可能都会采用，比如对于搜索引擎公司，可能的技术方法如下：网页建索引采用mapreduce框架，
+     自然语言处理/数据挖掘采用spark，对性能要求高的数据挖掘算法用mpi等，公司一般将所有的这些
+     框架部署到一个公共的集群中，让他们共享集群的资源，并对资源进行统一使用，这样便诞生了资源
+     统一管理与调度平台，典型的代表是mesos和yarn
+</pre>
+
+<pre>
+spark:
+
+     spark是个开源的数据分析集群计算框架，建立在HDFS上，spark与hadoop一样，用于构建大规模，
+     低延迟的数据分析应用，spark采用scala语言实现，使用scala作为应用框架。
+
+     spark采用基于内存的分布式数据集，优化了迭代式的工作负载以及交互式查询。
+
+     与hadoop不同的是，spark与scala紧密集成，scala对象管理本地collective对象那样管理分布式
+     数据集，spark支持分布式数据集上的迭代式任务，实际上可以在hadoop文件系统上与hadoop一起运行。
+</pre>
+
+<pre>
+storm:
+
+     storm是一个分布式的，容错的计算系统，storm属于流处理平台，多用于实时计算更新数据库，storm
+     也可以被用于连续计算，对于数据流做连续查询，在计算时将结果以流的形式输出给用户，他还可以被用
+     于分布式RPC,以并行的方式运行昂贵的计算。
+</pre>
